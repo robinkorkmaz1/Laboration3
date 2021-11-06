@@ -32,13 +32,10 @@ public class HelloController {
 
     ToggleGroup groupShape, groupColor;
 
-    // shape list
     private List<Shape> shapes;
 
-    // operation list
     private List<Operation> operations;
 
-    // variables for editing
     private boolean editing;
 
     private int editingShapeIdx;
