@@ -1,13 +1,19 @@
 package com.example.laboration3;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,7 +157,32 @@ public class HelloController {
 
     @FXML
     public void saveClicked() {
-        
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Saving image");
+        chooser.setInitialDirectory(new File("./"));
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("image file(*.png)", "*.png");
+        chooser.getExtensionFilters().add(filter);
+        File file = chooser.showSaveDialog(new Stage());
+        if (file == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.titleProperty().set("Tips");
+            alert.headerTextProperty().set("No file selected!");
+            alert.showAndWait();
+        } else {
+            Image image = pane.snapshot(new SnapshotParameters(), null);
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.titleProperty().set("Tips");
+                alert.headerTextProperty().set("Image saved successfully!");
+                alert.showAndWait();
+            } catch (Exception ex) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.titleProperty().set("Tips");
+                alert.headerTextProperty().set("Fail to save image!");
+                alert.showAndWait();
+            }
+        }
     }
 
     private boolean findSelectedShape(double x, double y) {
