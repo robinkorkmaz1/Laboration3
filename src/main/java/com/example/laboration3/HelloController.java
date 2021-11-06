@@ -1,6 +1,5 @@
 package com.example.laboration3;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
@@ -8,10 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.embed.swing.SwingFXUtils;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.util.ArrayList;
@@ -33,17 +33,17 @@ public class HelloController {
     ToggleGroup groupShape, groupColor;
 
     // shape list
-    List<Shape> shapes;
+    private List<Shape> shapes;
 
     // operation list
-    List<Operation> operations;
+    private List<Operation> operations;
 
     // variables for editing
-    boolean editing;
+    private boolean editing;
 
-    int editingShapeIdx;
+    private int editingShapeIdx;
 
-    Shape editingShape;
+    private Shape editingShape;
 
     @FXML
     public void initialize() {
@@ -80,9 +80,9 @@ public class HelloController {
             }
 
             if (groupShape.getSelectedToggle().getUserData().equals("circle"))
-                shapes.add(new ShapeCircle(x, y, size, color));
+                shapes.add(new Circle(x, y, size, color));
             else
-                shapes.add(new ShapeSquare(x, y, size, color));
+                shapes.add(new Square(x, y, size, color));
             operations.add(new Create());
 
             redrawShapes();
@@ -118,10 +118,9 @@ public class HelloController {
                 shapes.get(r.getIdx()).setSize(r.getOldSize());
                 shapes.get(r.getIdx()).setColor(r.getOldColor());
             }
+            operations.remove(operations.size()-1);
+            redrawShapes();
         }
-
-        operations.remove(operations.size()-1);
-        redrawShapes();
     }
 
     @FXML
@@ -185,10 +184,10 @@ public class HelloController {
         }
     }
 
-    private boolean findSelectedShape(double x, double y) {
+    public boolean findSelectedShape(double x, double y) {
         for (int i = shapes.size()-1; i>=0; i--) {
             Shape current = shapes.get(i);
-            if (current instanceof ShapeCircle) {
+            if (current instanceof Circle) {
                 if (Math.pow(current.getSize(), 2) >=
                         Math.pow(x - current.getX(), 2) + Math.pow(y - current.getY(), 2)) {
                     editingShapeIdx = i;
@@ -207,12 +206,12 @@ public class HelloController {
         return false;
     }
 
-    private void redrawShapes() {
+    public void redrawShapes() {
         pane.getChildren().clear();
 
         for (Shape s : shapes) {
-            if (s instanceof ShapeCircle) {
-                Circle circle = new Circle();
+            if (s instanceof Circle) {
+                javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle();
 
                 circle.setCenterX(s.getX());
                 circle.setCenterY(s.getY());

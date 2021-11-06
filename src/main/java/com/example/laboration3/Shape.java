@@ -17,16 +17,8 @@ public abstract class Shape {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     public double getSize() {
@@ -46,14 +38,14 @@ public abstract class Shape {
     }
 }
 
-class ShapeCircle extends Shape{
-    public ShapeCircle(double x, double y, double size, String color) {
+class Circle extends Shape{
+    public Circle(double x, double y, double size, String color) {
         super(x, y, size, color);
     }
 }
 
-class ShapeSquare extends Shape{
-    public ShapeSquare(double x, double y, double size, String color) {
+class Square extends Shape{
+    public Square(double x, double y, double size, String color) {
         super(x, y, size, color);
     }
 }
