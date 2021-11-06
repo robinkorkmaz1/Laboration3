@@ -26,9 +26,16 @@ public class HelloController {
 
     ToggleGroup groupShape, groupColor;
 
+    // shape list
     List<Shape> shapes;
 
+    // operation list
+    List<Operation> operations;
+
+    // variables for editing
     boolean editing;
+
+    int editingShapeIdx;
 
     Shape editingShape;
 
@@ -49,6 +56,7 @@ public class HelloController {
         rbBlue.setUserData("blue");
 
         shapes = new ArrayList<>();
+        operations = new ArrayList<>();
         editing = false;
     }
 
@@ -69,6 +77,7 @@ public class HelloController {
                 shapes.add(new ShapeCircle(x, y, size, color));
             else
                 shapes.add(new ShapeSquare(x, y, size, color));
+            operations.add(new Create());
 
             redrawShapes();
         } else {
@@ -94,9 +103,18 @@ public class HelloController {
 
     @FXML
     public void undoClicked() {
-        if (shapes.size() > 0)
-            shapes.remove(shapes.size() - 1);
+        if (operations.size() > 0) {
+            Operation last = operations.get(operations.size() - 1);
+            if (last instanceof Create)
+                shapes.remove(shapes.size() - 1);
+            else {
+                Replace r = (Replace) last;
+                shapes.get(r.getIdx()).setSize(r.getOldSize());
+                shapes.get(r.getIdx()).setColor(r.getOldColor());
+            }
+        }
 
+        operations.remove(operations.size()-1);
         redrawShapes();
     }
 
@@ -122,10 +140,18 @@ public class HelloController {
                 size = 25.0;
             }
 
+            operations.add(new Replace(editingShapeIdx, editingShape.getSize(), editingShape.getColor()));
+
             editingShape.setSize(size);
             editingShape.setColor(color);
+
             redrawShapes();
         }
+    }
+
+    @FXML
+    public void saveClicked() {
+        
     }
 
     private boolean findSelectedShape(double x, double y) {
@@ -134,12 +160,14 @@ public class HelloController {
             if (current instanceof ShapeCircle) {
                 if (Math.pow(current.getSize(), 2) >=
                         Math.pow(x - current.getX(), 2) + Math.pow(y - current.getY(), 2)) {
+                    editingShapeIdx = i;
                     editingShape = current;
                     return true;
                 }
             } else {
                 if (x >= current.getX() - current.getSize() && x <= current.getX() + current.getSize()
                         && y >= current.getY() -current.getSize() && y <= current.getY() + current.getSize()) {
+                    editingShapeIdx = i;
                     editingShape = current;
                     return true;
                 }
@@ -186,5 +214,4 @@ public class HelloController {
             }
         }
     }
-
 }

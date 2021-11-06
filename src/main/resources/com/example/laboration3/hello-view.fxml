@@ -16,7 +16,7 @@
         <Pane fx:id="pane" prefHeight="400" prefWidth="500" onMouseClicked="#paneClicked"></Pane>
         <VBox prefHeight="400" prefWidth="100" >
             <children>
-                <VBox prefHeight="100" prefWidth="100">
+                <VBox prefHeight="90" prefWidth="100">
                     <padding>
                         <Insets top="0" bottom="0" left="10" right="10" />
                     </padding>
@@ -26,7 +26,7 @@
                         <RadioButton fx:id="rbSquare" prefHeight="30" prefWidth="80" text="Square"/>
                     </children>
                 </VBox>
-                <VBox prefHeight="190" prefWidth="100">
+                <VBox prefHeight="180" prefWidth="100">
                     <padding>
                         <Insets top="0" bottom="0" left="10" right="10" />
                     </padding>
@@ -39,12 +39,13 @@
                         <RadioButton fx:id="rbBlue" prefHeight="30" prefWidth="80" text="Blue"/>
                     </children>
                 </VBox>
-                <VBox prefHeight="100" prefWidth="100">
+                <VBox prefHeight="120" prefWidth="100">
                     <padding>
                         <Insets top="0" bottom="0" left="10" right="10" />
                     </padding>
                     <children>
                         <Label prefHeight="30" prefWidth="80" text="Operations:"/>
+                        <Button prefHeight="30" prefWidth="80" text="Save" onAction="#undoClicked"/>
                         <Button prefHeight="30" prefWidth="80" text="Undo" onAction="#undoClicked"/>
                         <Button fx:id="btnEdit" prefHeight="30" prefWidth="80" text="Edit" onAction="#editClicked"/>
                     </children>
