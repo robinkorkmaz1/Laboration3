@@ -45,6 +45,19 @@ public class HelloController {
 
     private Shape editingShape;
 
+    public HelloController(List<Shape> shapes, List<Operation> operations) {
+        this.shapes = shapes;
+        this.operations = operations;
+    }
+
+    public List<Shape> getShapes() {
+        return shapes;
+    }
+
+    public List<Operation> getOperations() {
+        return operations;
+    }
+
     @FXML
     public void initialize() {
         groupShape = new ToggleGroup();
