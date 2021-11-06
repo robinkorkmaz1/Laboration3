@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.TextField?>
+<HBox prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboration3.HelloController">
+    <children>
+        <Pane fx:id="pane" prefHeight="400" prefWidth="500" onMouseClicked="#paneClicked"></Pane>
+        <VBox prefHeight="400" prefWidth="100" >
+            <children>
+                <VBox prefHeight="100" prefWidth="100">
+                    <padding>
+                        <Insets top="0" bottom="0" left="10" right="10" />
+                    </padding>
+                    <children>
+                        <Label prefHeight="30" prefWidth="80" text="Shape:"/>
+                        <RadioButton fx:id="rbCircle" prefHeight="30" prefWidth="80" text="Circle" selected="true"/>
+                        <RadioButton fx:id="rbSquare" prefHeight="30" prefWidth="80" text="Square"/>
+                    </children>
+                </VBox>
+                <VBox prefHeight="190" prefWidth="100">
+                    <padding>
+                        <Insets top="0" bottom="0" left="10" right="10" />
+                    </padding>
+                    <children>
+                        <Label prefHeight="30" prefWidth="80" text="Size:"/>
+                        <TextField fx:id="tfSize" prefHeight="30" prefWidth="80" text="25.0"/>
+                        <Label prefHeight="30" prefWidth="80" text="Color:"/>
+                        <RadioButton fx:id="rbRed" prefHeight="30" prefWidth="80" text="Red" selected="true"/>
+                        <RadioButton fx:id="rbYellow" prefHeight="30" prefWidth="80" text="Yellow"/>
+                        <RadioButton fx:id="rbBlue" prefHeight="30" prefWidth="80" text="Blue"/>
+                    </children>
+                </VBox>
+                <VBox prefHeight="100" prefWidth="100">
+                    <padding>
+                        <Insets top="0" bottom="0" left="10" right="10" />
+                    </padding>
+                    <children>
+                        <Label prefHeight="30" prefWidth="80" text="Operations:"/>
+                        <Button prefHeight="30" prefWidth="80" text="Undo" onAction="#undoClicked"/>
+                        <Button fx:id="btnEdit" prefHeight="30" prefWidth="80" text="Edit" onAction="#editClicked"/>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+
+
+</HBox>
