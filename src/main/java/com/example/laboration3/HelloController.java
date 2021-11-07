@@ -42,8 +42,11 @@ public class HelloController {
 
     private Shape editingShape;
 
-    public HelloController(List<Shape> shapes, List<Operation> operations) {
+    public void setShapes(List<Shape> shapes) {
         this.shapes = shapes;
+    }
+
+    public void setOperations(List<Operation> operations) {
         this.operations = operations;
     }
 

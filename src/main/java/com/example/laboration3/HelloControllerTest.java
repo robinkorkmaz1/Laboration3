@@ -10,9 +10,11 @@ class HelloControllerTest {
 
     @Test
     void undoClicked() {
-        HelloController helloController = new HelloController(new ArrayList<>() {{
+        HelloController helloController = new HelloController();
+        helloController.setShapes(new ArrayList<>() {{
             new Circle(100, 200, 60, "yellow");
-        }}, new ArrayList<>() {{
+        }});
+        helloController.setOperations(new ArrayList<>() {{
             new Create();
             new Replace(0, 50, "red");
         }});
@@ -27,9 +29,11 @@ class HelloControllerTest {
 
     @Test
     void findSelectedShape() {
-        HelloController helloController = new HelloController(new ArrayList<>() {{
-            new Circle(100, 200, 50, "red");
-        }}, new ArrayList<>());
+        HelloController helloController = new HelloController();
+        helloController.setShapes(new ArrayList<>() {{
+            new Circle(100, 200, 60, "yellow");
+        }});
+        helloController.setOperations(new ArrayList<>());
         assertTrue(helloController.findSelectedShape(55, 200));
         assertFalse(helloController.findSelectedShape(100, 255));
     }
