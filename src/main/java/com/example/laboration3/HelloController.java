@@ -6,8 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.embed.swing.SwingFXUtils;
@@ -124,13 +122,7 @@ public class HelloController {
     public void undoClicked() {
         if (operations.size() > 0) {
             Operation last = operations.get(operations.size() - 1);
-            if (last instanceof Create)
-                shapes.remove(shapes.size() - 1);
-            else {
-                Replace r = (Replace) last;
-                shapes.get(r.getIdx()).setSize(r.getOldSize());
-                shapes.get(r.getIdx()).setColor(r.getOldColor());
-            }
+            last.undo(shapes);
             operations.remove(operations.size()-1);
             redrawShapes();
         }
@@ -221,40 +213,8 @@ public class HelloController {
 
     public void redrawShapes() {
         pane.getChildren().clear();
-
         for (Shape s : shapes) {
-            if (s instanceof Circle) {
-                javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle();
-
-                circle.setCenterX(s.getX());
-                circle.setCenterY(s.getY());
-                circle.setRadius(s.getSize());
-                if (s.getColor().equals("red"))
-                    circle.setFill(Color.RED);
-                else if (s.getColor().equals("yellow"))
-                    circle.setFill(Color.YELLOW);
-                else
-                    circle.setFill(Color.BLUE);
-                circle.setStroke(Color.BLACK);
-
-                pane.getChildren().add(circle);
-            } else {
-                Rectangle rectangle = new Rectangle();
-
-                rectangle.setX(s.getX() - s.getSize());
-                rectangle.setY(s.getY() - s.getSize());
-                rectangle.setWidth(2 * s.getSize());
-                rectangle.setHeight(2 * s.getSize());
-                if (s.getColor().equals("red"))
-                    rectangle.setFill(Color.RED);
-                else if (s.getColor().equals("yellow"))
-                    rectangle.setFill(Color.YELLOW);
-                else
-                    rectangle.setFill(Color.BLUE);
-                rectangle.setStroke(Color.BLACK);
-
-                pane.getChildren().add(rectangle);
-            }
+            s.draw(pane);
         }
     }
 }

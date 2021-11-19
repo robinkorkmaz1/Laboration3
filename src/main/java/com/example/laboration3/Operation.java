@@ -1,13 +1,22 @@
 package com.example.laboration3;
 
-public abstract class Operation { }
+import java.util.List;
 
-class Create extends Operation { }
+public abstract class Operation {
+    public void undo(List<Shape> shapes){}
+}
+
+class Create extends Operation {
+    @Override
+    public void undo(List<Shape> shapes){
+        shapes.remove(shapes.size() - 1);
+    }
+}
 
 class Replace extends Operation {
-    private int idx;
-    private double oldSize;
-    private String oldColor;
+    private final int idx;
+    private final double oldSize;
+    private final String oldColor;
 
     public Replace(int idx, double oldSize, String oldColor) {
         this.idx = idx;
@@ -15,15 +24,9 @@ class Replace extends Operation {
         this.oldColor = oldColor;
     }
 
-    public int getIdx() {
-        return idx;
-    }
-
-    public double getOldSize() {
-        return oldSize;
-    }
-
-    public String getOldColor() {
-        return oldColor;
+    @Override
+    public void undo(List<Shape> shapes){
+        shapes.get(idx).setSize(oldSize);
+        shapes.get(idx).setColor(oldColor);
     }
 }
